@@ -1,31 +1,21 @@
-# oracle-spec
+# Oracle Spec: A Standard Language for Non-Coders to Define Good AI Behavior
 
-Oracle-Spec: A Declarative Standard for Defining Good AI Behavior
+Oracle-spec is a controlled natural language (CNL) and schema for declaring quality-control predicates that compile into executable checks.
 
-Huggingface Benchmarks is the top way to compare AI Agents. The problem
-is that it requires coding expertise to personalize and there
-is no standard.
+Oracle-spec enables non-coders to author verifiable definitions of “good behavior”—rules, constraints, and rubrics—without writing custom evaluator code. The oracle-spec runtime enforces unambiguous syntax and defined semantics, so authors can safely use LLM-assisted tools (e.g., Codex, Claude Code) to draft and refine rules while preserving determinism.
 
-An AI oracle is a proposed solution.
-
-What is an AI oracle?
-
-An AI oracle has a dialog with a human who is looking to choose which of many competing AI agents
-will lead them to their best conditional outcomes.
-
-The aim of Oracle-Spec is to give non-coders a cheap, transparent and repeatable way to
-author an AI oracle.
+After execution, oracle-spec produces human-readable feedback from (1) schema/grammar validation and (2) predicate evaluation results. This feedback helps authors clarify intent, resolve ambiguity, and iteratively converge on a precise behavioral contract within the controlled grammar.
 
 ## Design Principles
 
-1. Declarative
+1. Declarative Spec for Grammar Feedback
 
 By authoring an oracle using a schema-validated declarative specification (ie., a
 controlled natural language) a non-coder can unambiguously express normative
 behavioral assertions on changes in key observable states in his natural language
 since they can get feedback to fix any of their ambiguous directives.
 
-2. Executable
+2. Executable for Assertion Feedback
 
 By compiling an oracle into an evaluator, we can execute one or more
 AI agents against the full oracle or the proposed changes in the oracle
@@ -41,15 +31,6 @@ of an agent pre-intervention, post-intervention, and follow-up evaluation?
 
 Evaluation is based on predicates, which are more general than the deterministic `actual vs expected` form.
 Predicate assertion may carry severity levels.
-
-## Spec schema
-
-- state
-- invariants
-
-## What is an Oracle?
-
-## What is an Oracle Spec?
 
 ## Motivation
 
