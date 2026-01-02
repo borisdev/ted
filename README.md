@@ -1,19 +1,13 @@
-# TED Compose (Task Evaluation Definition Composition)
+# TED - Task Evaluation Definition
 
-TED Compose is a tool that allows the following
+TED is a tool that allows the following
 
 - use of a single YAML file (`ted-compose.yaml`) to define and run an evaluation of an AI task.
 - use natural language to compose the ted-compose YAML
 
-A ted compose requires the author define three main parts before running an evaluation of some task:
-
-- criteria
-- task bindings (how to run the task worker)
-- collection of observations (pre- and post-state and output aka test examples) to run the criteria against
-
 ## Aims
 
-- The short term aim is to make it simpler and more expressive for developers to evaluate AI agents.
+- The immediate aim is to make it simpler and more expressive for developers to evaluate AI agents.
 - The long term aim is for people with zero knowledge of how AI works to control the criteria of good AI behavior.
 
 ## Why is a single evaluation YAML such a big deal?
@@ -54,6 +48,14 @@ ted evaluate -f my-ted-compose.yaml
     "faults": ...
 }
 ```
+
+## Components
+
+A ted compose requires the author define three main parts before running an evaluation of some task:
+
+- criteria
+- task bindings (how to run the task worker)
+- collection of observations (pre- and post-state and output aka test examples) to run the criteria against
 
 ## Contributor challenge
 
