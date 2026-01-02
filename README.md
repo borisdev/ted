@@ -1,47 +1,53 @@
-# TED - Task Evaluation Definition
+# Evaldoc
 
-TED is a tool that allows the following
+Evaldoc allows natural language to define and execute AI evaluations using one file (`ai-task.eval.yaml`).
 
-- use of a single YAML file (`ted-compose.yaml`) to define and run an evaluation of an AI task.
-- use natural language to compose the ted-compose YAML
+## Evaluation Language Design Challenge
 
-## Aims
+Our open source grammar design challenge is to maximizes criteria precision while minimizing the loss of general criteria expressiveness.
 
-- The immediate aim is to make it simpler and more expressive for developers to evaluate AI agents.
+## Current Highlights
+
+- **Portability:** A single YAML file represents your evaluation workflow (rubric, input schema, output schema, providers).
+- **Swapability:** Your evaluation workflow can swap different criteria, AI providers, and evaluator platform providers.
+- **Hackability:** The essential core (the YAML file's grammar or internal representation) is one light pydantic open source module.
+- **Transparency:** Rubric predicates contain their natural language source.
+- **Precision:** Rubric grammar enforces semantic ambiguity and schema.
+- **Expressiveness:**
+  - Rubric conditional behavioral predicates express more than the `actual-expected` pattern.
+  - conditional predicates are evaluated over a panel observations of outcome and side-effect
+    observations
+  - conditional predicates contain severity levels
+
+## Dialog Illustration
+
+- President: Prove to me why I should buy your AI?
+- You: Have all your stakeholder email me their `eval-doc` file, and I will make you a reproducible report.
+- The People: All the power must not be in the hands of AI Engineers in making the AI Traffic Police Bots.
+- You: Email your representative your personal `eval-doc` file judging the quality of Traffic Police Bots.
+
+## Aims by Phase
+
+- The short term aim is to make it simpler to jump start a spec driven development of a LLM prompt without being tied to any one runtime framework.
+- The middle term aim is to make it simpler and more expressive for developers to evaluate AI agents.
 - The long term aim is for people with zero knowledge of how AI works to control the criteria of good AI behavior.
-
-## Why is a single evaluation YAML such a big deal?
-
-A single declaritive YAML is easier to standardize and share than code of many different frameworks.
-Consider this dialog.
-
-- CTO: Why did you choose Claude Code over Codex for this task?
-- Dev: Look at my ted compose to see my criteria and observations and resulting report.
-- CPO: How will we get encode domain expertise into our AI system for 10 uses cases in one month?
-- Dev: Tell the domain experts to author criteria using ChatGPT.
-- CEO: I have 10 startups giving me demos to propose AI to save us toil and I have no idea how to choose the top candidate?
-- Dev: Author a TED compose and tell each time to interpret it with how we run their task worker.
-- CEO: Can we cheaply swap competing evaluator SaaS services and AI workfflow services
-- Dev: yep. 1st Define a canonical ted compose yamls
-- Bartender: I dont like all the power in the hands of AI Engineers in making the Traffic Police Bots
-- Dev: Oh, just write a ted compose using ChatGPT and email it to your representative
 
 ## Example CLI usage
 
 ```bash
-ted compose --interpret "the task is to discover what PMC manuscript facts we can query to help the user with her problem"
-ted compose --interpret "the task output must contain a field of type list: `audience_memberships`
-ted compose --interpret "clinical trials on animals are never relevant to the biohacker audience"
-ted compose --interpret "run evaluations against these raw input conversation threads in dir `/.ted/nobsmed/test_cases`
-ted compose --interpret "run evaluations against this AI Agent invocation`
+evaldoc --interpret "the task is to discover what PMC manuscript facts we can query to help the user with her problem"
+evaldoc --interpret "the task output must contain a field of type list: `audience_memberships`
+evaldoc --interpret "clinical trials on animals are never relevant to the biohacker audience"
+evaldoc --interpret "run evaluations against these raw input conversation threads in dir `/.ted/nobsmed/test_cases`
+evaldoc --interpret "run evaluations against this AI Agent invocation`
 
 #or
 
-ted compose --interpret --input instructions.md --output my-ted-compose.yaml
+evaldoc compose --interpret --input instructions.md --output my-ted-compose.yaml
 
-ted evaluate --format=md >> report.model
+evaldoc evaluate --format=md >> report.model
 #or
-ted evaluate -f my-ted-compose.yaml
+evaldoc evaluate -f my-ted-compose.yaml
 # console output looks like....
 {
     "summary": .....
@@ -51,23 +57,10 @@ ted evaluate -f my-ted-compose.yaml
 
 ## Components
 
-A ted compose requires the author define three main parts before running an evaluation of some task:
+A valid`some_task.eval.yaml` requires three main parts:
 
-- criteria
-- task bindings (how to run the task worker)
-- collection of observations (pre- and post-state and output aka test examples) to run the criteria against
+### what are we looking at? - observations schema
 
-## Contributor challenge
+### what is the criteria or rubric for "good behavior"? - predicates
 
-The challenge being proposed here is for contributors to make an optimal TED
-CNL that maximizes precision and minimizes the loss of general TED
-expressiveness.
-
-## Highlights
-
-- the internal schema representation (pydantic) of a ted-compose file
-  represents a single proposed standard for defining many customized task
-  evaluations in natural language.
-- conditional predicates are evaluated over a panel observations of outcome and side-effect
-  observations
-- conditional predicates contain severity levels
+### who we are judging? - provider bindings
